@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
+import CompanyModel from "../models/companyModel.js";
 
 const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
@@ -32,18 +33,44 @@ export const scrapeJobs = async (url) => {
     });
 
     const jobs = await page.evaluate(() => {
-      const jobList = document.querySelectorAll(".cust-job-tuple ");
+      const joblist = document.querySelectorAll(".cust-job-tuple ");
       const jobArray = [];
-      jobList.forEach((job) => {
-        const title = job.querySelector(".title ").innerText;
-        const companyName = job.querySelector(".comp-name").innerText;
+      for (let i = 0; i < Math.min(20, joblist.length); i++) {
+        const role = joblist[i].querySelector(".title ")?.innerText || null;
+        const companyName =
+          joblist[i].querySelector(".comp-name")?.innerText || null;
+        const logo = joblist[i].querySelector(".logoImage")?.src || null;
+        const experience =
+          joblist[i].querySelector(".exp-wrap")?.innerText || null;
+        const salary = joblist[i].querySelector(".sal-wrap")?.innerText || null;
+        const locationString = joblist[i].querySelector(".loc-wrap").innerText;
+        const location = locationString.split(",").map((loc) => loc.trim());
 
-        jobArray.push({ title, companyName });
-      });
+        // const description = joblist[i].querySelectorAll(".row4").innerText || null;
+        const s = joblist[i].querySelectorAll(".tag-li");
+        const skills = Array.from(s, (el) => el.textContent);
+        const link = joblist[i].querySelector(".title")?.href || null;
+        const postedAt =
+          joblist[i].querySelector(".job-post-day")?.innerText || null;
+
+        jobArray.push({
+          companyName,
+          role,
+          logo,
+          experience,
+          salary,
+          location,
+
+          skills,
+          link,
+          postedAt,
+        });
+      }
       return jobArray;
     });
 
-    console.log("Scraping done", jobs);
+    // await CompanyModel.insertMany(jobs);
+    console.log("Jobs scraped successfully!");
     await browser.close();
   } catch (error) {
     console.error("Error scraping jobs:", error);

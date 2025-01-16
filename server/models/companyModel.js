@@ -3,35 +3,43 @@ import mongoose from "mongoose";
 const companySchema = new mongoose.Schema({
   logo: {
     type: String,
-    required: true,
+    // required: true,
   },
-  name: {
+  role: {
     type: String,
-    required: true,
+    // required: true,
   },
+  companyName: {
+    type: String,
+    // required: true,
+  },
+  // description: {
+  //   type: String,
+  //   // required: true
+  // },
   location: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
+    type: [String],
+    // required: true,
   },
   salary: {
-    type: Number,
-    required: true,
+    type: String,
+    // required: true,
   },
   experience: {
     type: String,
-    required: true,
+    // required: true,
   },
   skills: {
     type: [String],
-    required: true,
+    // required: true,
   },
   link: {
     type: String,
-    required: true,
+    // required: true,
+  },
+  postedAt: {
+    type: String,
+    // required: true,
   },
 });
 
