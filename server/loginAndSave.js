@@ -3,7 +3,8 @@ import fs from "fs/promises";
 
 const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
-
+const password = process.env.PASSWORD;
+const username = process.env.USERNAME;
 export const loginAndSaveSession = async () => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
@@ -13,9 +14,9 @@ export const loginAndSaveSession = async () => {
 
   await page.goto(login, { waitUntil: "networkidle2", timeout: 60000 });
   await page.waitForSelector("#usernameField", { visible: true });
-  await page.type("#usernameField", "try.ajchaurasia1214@gmail.com");
+  await page.type("#usernameField", username);
   await page.waitForSelector("#passwordField", { visible: true });
-  await page.type("#passwordField", "Naukri@1214");
+  await page.type("#passwordField", password);
 
   await Promise.all([
     page.click('[data-ga-track="spa-event|login|login|Save||||true"]'),

@@ -50,9 +50,9 @@ export const scrapeJobs = async (url) => {
         const s = joblist[i].querySelectorAll(".tag-li");
         const skills = Array.from(s, (el) => el.textContent);
         const link = joblist[i].querySelector(".title")?.href || null;
-        const postedAt =
+        const postedAtText =
           joblist[i].querySelector(".job-post-day")?.innerText || null;
-
+        const postedAt = postedAtText.match(/\d+/)[0];
         jobArray.push({
           companyName,
           role,

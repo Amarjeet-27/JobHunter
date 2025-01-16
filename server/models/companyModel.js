@@ -38,7 +38,7 @@ const companySchema = new mongoose.Schema({
     // required: true,
   },
   postedAt: {
-    type: String,
+    type: Number,
     // required: true,
   },
 });
