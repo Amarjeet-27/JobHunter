@@ -1,0 +1,15 @@
+import express from "express";
+import companyRouter from "./routes/companyRoutes.js";
+import connectDB from "./db/db.js";
+import { scrapeJobs } from "./controllers/JobScrapper.js";
+import { loginAndSaveSession } from "./loginAndSave.js";
+const app = express();
+const PORT = process.env.PORT || 3002;
+connectDB();
+// loginAndSaveSession();
+scrapeJobs();
+app.use("/", companyRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
