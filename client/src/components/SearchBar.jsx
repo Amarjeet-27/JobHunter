@@ -4,9 +4,10 @@ import "font-awesome/css/font-awesome.min.css";
 
 const SearchBar = ({ setShow, setJobs }) => {
   const [input, setInput] = useState("");
+  const URL = import.meta.env.VITE_APP_URL;
   const onSearch = async () => {
     setShow(true);
-    const res = await axios.post("http://localhost:3002/jobs/skill", {
+    const res = await axios.post(`${URL}/jobs/skill`, {
       skill: input,
     });
     setJobs(res.data.companies);

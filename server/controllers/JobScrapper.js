@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 import CompanyModel from "../models/companyModel.js";
-
+import cron from "node-cron";
 const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
 export const scrapeJobs = async (url) => {
@@ -15,10 +15,15 @@ export const scrapeJobs = async (url) => {
     await page.setCookie(...cookies);
     let i = 0;
     const AllJobs = [];
-    while (i < 2) {
-      const url =
-        "https://www.naukri.com/jobs-in-india-2?clusters=functionalAreaGid&functionAreaIdGid=4";
-      await page.goto(url, { waitUntil: "networkidle2", timeout: 120000 });
+    while (i < 3) {
+      const url = `https://www.naukri.com/jobs-in-india-${
+        i + 1
+      }?clusters=functionalAreaGid&functionAreaIdGid=5&functionAreaIdGid=6&functionAreaIdGid=8&functionAreaIdGid=14&functionAreaIdGid=19&ctcFilter=6to10`;
+
+      await page.goto(url, {
+        waitUntil: "networkidle2",
+        timeout: 120000,
+      });
 
       // Load local storage from file
       const localStorageData = JSON.parse(
@@ -102,3 +107,8 @@ export const scrapeJobs = async (url) => {
     console.error("Error scraping jobs:", error);
   }
 };
+// Schedule the scraping task every minute
+// cron.schedule("* * * * *", () => {
+//   console.log("Scraping task is running...");
+//   scrapeJobs();
+// });

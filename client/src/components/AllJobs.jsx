@@ -3,9 +3,9 @@ import JobCard from "./JobCard";
 import axios from "axios";
 const AllJobs = () => {
   const [data, Setdata] = useState([]);
-
+  const URL = import.meta.env.VITE_APP_URL;
   const getData = async () => {
-    const res = await axios.get("http://localhost:3002/jobs");
+    const res = await axios.get(`${URL}/jobs`);
     Setdata(res.data.companies);
     console.log(res);
   };
