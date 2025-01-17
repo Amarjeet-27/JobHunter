@@ -1,7 +1,7 @@
 import CompanyModel from "../models/companyModel.js";
 
 const getCompanies = async (req, res) => {
-  const companies = await CompanyModel.find().sort({ postedAt: 1 }).limit(2);
+  const companies = await CompanyModel.find().sort({ postedAt: 1 }).limit(10);
   res.send({
     success: true,
     message: "Get all companies",
@@ -11,7 +11,9 @@ const getCompanies = async (req, res) => {
 const getCompaniesBySkill = async (req, res) => {
   try {
     const skill = req.body.skill;
-    const companies = await CompanyModel.find({ skills: skill });
+    const companies = await CompanyModel.find({
+      skills: { $in: [new RegExp(skill, "i")] },
+    });
     res.send({
       success: true,
       message: "Get all companies",

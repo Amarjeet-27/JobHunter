@@ -13,65 +13,91 @@ export const scrapeJobs = async (url) => {
     // Load cookies from file
     const cookies = JSON.parse(await fs.readFile(COOKIE_PATH));
     await page.setCookie(...cookies);
+    let i = 0;
+    const AllJobs = [];
+    while (i < 2) {
+      const url =
+        "https://www.naukri.com/jobs-in-india-2?clusters=functionalAreaGid&functionAreaIdGid=4";
+      await page.goto(url, { waitUntil: "networkidle2", timeout: 120000 });
 
-    const url =
-      "https://www.naukri.com/jobs-in-india?functionAreaIdGid=22&clusters=functionalAreaGid";
-    await page.goto(url, { waitUntil: "networkidle2", timeout: 120000 });
+      // Load local storage from file
+      const localStorageData = JSON.parse(
+        await fs.readFile(LOCAL_STORAGE_PATH)
+      );
+      await page.evaluate((data) => {
+        for (let key in data) {
+          localStorage.setItem(key, data[key]);
+        }
+      }, localStorageData);
 
-    // Load local storage from file
-    const localStorageData = JSON.parse(await fs.readFile(LOCAL_STORAGE_PATH));
-    await page.evaluate((data) => {
-      for (let key in data) {
-        localStorage.setItem(key, data[key]);
-      }
-    }, localStorageData);
+      console.log("Session restored!");
 
-    console.log("Session restored!");
+      // scrap the data from naukri.com
 
-    await page.waitForSelector(".cust-job-tuple", {
-      timeout: 120000,
-    });
+      await page.waitForSelector(".cust-job-tuple", {
+        timeout: 120000,
+      });
 
-    const jobs = await page.evaluate(() => {
-      const joblist = document.querySelectorAll(".cust-job-tuple ");
-      const jobArray = [];
-      for (let i = 0; i < Math.min(20, joblist.length); i++) {
-        const role = joblist[i].querySelector(".title ")?.innerText || null;
-        const companyName =
-          joblist[i].querySelector(".comp-name")?.innerText || null;
-        const logo = joblist[i].querySelector(".logoImage")?.src || null;
-        const experience =
-          joblist[i].querySelector(".exp-wrap")?.innerText || null;
-        const salary = joblist[i].querySelector(".sal-wrap")?.innerText || null;
-        const locationString = joblist[i].querySelector(".loc-wrap").innerText;
-        const location = locationString.split(",").map((loc) => loc.trim());
+      const jobs = await page.evaluate(() => {
+        const joblist = document.querySelectorAll(".cust-job-tuple ");
+        const jobArray = [];
+        for (let i = 0; i < joblist.length; i++) {
+          const role = joblist[i].querySelector(".title ")?.innerText || null;
+          const companyName =
+            joblist[i].querySelector(".comp-name")?.innerText || null;
+          const logo = joblist[i].querySelector(".logoImage")?.src || null;
+          const experience =
+            joblist[i].querySelector(".exp-wrap")?.innerText || null;
+          const salary =
+            joblist[i].querySelector(".sal-wrap")?.innerText || null;
+          const locationString =
+            joblist[i].querySelector(".loc-wrap").innerText;
+          const location = locationString.split(",").map((loc) => loc.trim());
+          const s = joblist[i].querySelectorAll(".tag-li");
+          const skills = Array.from(s, (el) => el.textContent);
+          const link = joblist[i].querySelector(".title")?.href || null;
+          const postedAtText =
+            joblist[i].querySelector(".job-post-day")?.innerText || null;
+          const postedAt = Number(postedAtText.match(/\d+/)?.[0] || 0);
+          jobArray.push({
+            companyName,
+            role,
+            logo,
+            experience,
+            salary,
+            location,
+            skills,
+            link,
+            postedAt,
+          });
+        }
+        return jobArray;
+      });
+      console.log("Scraped page", i + 1);
+      i++;
+      AllJobs.push(...jobs);
+    }
 
-        // const description = joblist[i].querySelectorAll(".row4").innerText || null;
-        const s = joblist[i].querySelectorAll(".tag-li");
-        const skills = Array.from(s, (el) => el.textContent);
-        const link = joblist[i].querySelector(".title")?.href || null;
-        const postedAtText =
-          joblist[i].querySelector(".job-post-day")?.innerText || null;
-        const postedAt = postedAtText.match(/\d+/)[0];
-        jobArray.push({
-          companyName,
-          role,
-          logo,
-          experience,
-          salary,
-          location,
-
-          skills,
-          link,
-          postedAt,
-        });
-      }
-      return jobArray;
-    });
-
-    // await CompanyModel.insertMany(jobs);
-    console.log("Jobs scraped successfully!");
     await browser.close();
+
+    const sortByPostedAt = AllJobs.sort((a, b) => a.postedAt - b.postedAt);
+    const length = sortByPostedAt.length;
+
+    try {
+      if (length == 0) {
+        console.log("No jobs found");
+      } else if (length < 50) {
+        await CompanyModel.deleteMany({});
+        await CompanyModel.insertMany(sortByPostedAt);
+        console.log("Jobs scraped successfully!");
+      } else {
+        await CompanyModel.deleteMany({});
+        await CompanyModel.insertMany(sortByPostedAt.slice(0, 50));
+        console.log("Jobs scraped successfully!");
+      }
+    } catch (error) {
+      console.error("Error scraping jobs:", error);
+    }
   } catch (error) {
     console.error("Error scraping jobs:", error);
   }

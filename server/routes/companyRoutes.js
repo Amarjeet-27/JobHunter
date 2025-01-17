@@ -5,7 +5,7 @@ import {
 } from "../controllers/companyController.js";
 
 const companyRouter = express.Router();
-companyRouter.get("/", getCompanies); // get all companies
-companyRouter.post("/", getCompaniesBySkill);
+companyRouter.get("/jobs", getCompanies); // get all companies
+companyRouter.post("/jobs/skill", getCompaniesBySkill);
 
 export default companyRouter;
