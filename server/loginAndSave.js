@@ -4,10 +4,17 @@ import fs from "fs/promises";
 const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
 
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const cacheDirectory = join(__dirname, ".cache", "puppeteer");
 export const loginAndSaveSession = async () => {
   const browser = await puppeteer.launch({
     headless: false,
     executablePath: process.env.PUPETEER_CONFIG,
+    userDataDir: cacheDirectory,
   });
   const page = await browser.newPage();
 

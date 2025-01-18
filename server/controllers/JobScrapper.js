@@ -1,16 +1,22 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 import CompanyModel from "../models/companyModel.js";
-import cron from "node-cron";
-// import { cacheDirectory } from "../puppeteer.config.cjs";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+// import cron from "node-cron";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const cacheDirectory = join(__dirname, ".cache", "puppeteer");
+
 const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
-
 export const scrapeJobs = async (url) => {
   try {
     const browser = await puppeteer.launch({
       headless: false,
       executablePath: process.env.PUPETEER_CONFIG,
+      userDataDir: cacheDirectory,
     });
     const page = await browser.newPage();
 
