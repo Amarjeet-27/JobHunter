@@ -5,7 +5,10 @@ const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
 
 export const loginAndSaveSession = async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+    headless: false,
+    executablePath: process.env.PUPETEER_CONFIG,
+  });
   const page = await browser.newPage();
 
   const login = "https://www.naukri.com/nlogin/login";
