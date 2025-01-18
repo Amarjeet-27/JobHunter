@@ -14,7 +14,6 @@ connectDB();
 // loginAndSaveSession();
 scrapeJobs();
 app.use("/", companyRouter);
-console.log("userID", process.env.USEREMAIL);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

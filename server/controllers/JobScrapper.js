@@ -6,7 +6,6 @@ const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
 export const scrapeJobs = async (url) => {
   try {
-    // Launch Puppeteer
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
@@ -116,7 +115,6 @@ cron.schedule("0 0 * * *", () => {
   const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
 
   if (diffDays % 10 === 0) {
-    // Check if today is the 10th day since startDate
     console.log("Scraping task is running...");
     scrapeJobs();
   }
