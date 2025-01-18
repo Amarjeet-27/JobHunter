@@ -108,7 +108,16 @@ export const scrapeJobs = async (url) => {
   }
 };
 // Schedule the scraping task every minute
-// cron.schedule("* * * * *", () => {
-//   console.log("Scraping task is running...");
-//   scrapeJobs();
-// });
+cron.schedule("0 0 * * *", () => {
+  // Run daily at midnight
+  const startDate = new Date("2025-01-18");
+  // reference date
+  const today = new Date();
+  const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+
+  if (diffDays % 10 === 0) {
+    // Check if today is the 10th day since startDate
+    console.log("Scraping task is running...");
+    scrapeJobs();
+  }
+});
