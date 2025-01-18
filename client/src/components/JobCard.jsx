@@ -8,11 +8,11 @@ const JobCard = ({ job }) => {
         <div className="flex w-full flex-col p-6 bg-white shadow-lg hover:shadow-xl transition-shadow rounded-lg border border-gray-200">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8 py-6">
             <div className="flex items-center gap-6">
-              <div className="flex justify-center items-center w-20 h-20 bg-gray-100 border border-gray-300 rounded-lg">
+              <div className="flex justify-center items-center w-20 h-20 bg-gray-100 border border-gray-300 rounded-lg overflow-hidden">
                 <img
                   src={job.logo}
                   alt="logo"
-                  className="object-contain w-17 h-16"
+                  className="object-contain w-full h-full"
                 />
               </div>
               <div className="flex flex-col gap-2">

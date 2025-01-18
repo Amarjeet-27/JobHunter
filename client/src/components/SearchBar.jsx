@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "font-awesome/css/font-awesome.min.css";
 
@@ -10,14 +10,23 @@ const SearchBar = ({ setShow, setJobs }) => {
     const res = await axios.post(`${URL}/jobs/skill`, {
       skill: input,
     });
-    setJobs(res.data.companies);
-    console.log(res);
+    if (res.data?.success) {
+      setJobs(res.data.companies);
+      console.log(res);
+    } else {
+      console.log("Error in fetching details ", res.data?.message);
+    }
   };
 
   const onClear = () => {
     setInput("");
     setShow(false);
   };
+  useEffect(() => {
+    if (input === "") {
+      setShow(false);
+    }
+  }, [input]);
 
   return (
     <div className="flex justify-center items-center px-4 sm:px-8">
@@ -27,6 +36,7 @@ const SearchBar = ({ setShow, setJobs }) => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && onSearch()}
             placeholder="Skills"
             className="border-2 border-gray-300 p-3 pr-10 rounded-lg w-full text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
