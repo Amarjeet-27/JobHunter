@@ -1,2 +1,3 @@
-2025/01/18-22:12:17.790 2d48 Creating DB C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\IndexedDB\https_www.naukri.com_0.indexeddb.leveldb since it was missing.
-2025/01/18-22:12:17.802 2d48 Reusing MANIFEST C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\IndexedDB\https_www.naukri.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/01/19-10:07:31.337 2c9c Reusing MANIFEST C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\IndexedDB\https_www.naukri.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/01/19-10:07:31.338 2c9c Recovering log #3
+2025/01/19-10:07:31.350 2c9c Reusing old log C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\IndexedDB\https_www.naukri.com_0.indexeddb.leveldb/000003.log 

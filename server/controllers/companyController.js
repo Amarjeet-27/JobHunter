@@ -2,7 +2,7 @@ import CompanyModel from "../models/companyModel.js";
 
 const getCompanies = async (req, res) => {
   try {
-    const companies = await CompanyModel.find().sort({ postedAt: 1 }).limit(20);
+    const companies = await CompanyModel.find().sort({ postedAt: 1 }).limit(10);
     res.send({
       success: true,
       message: "Get all companies",

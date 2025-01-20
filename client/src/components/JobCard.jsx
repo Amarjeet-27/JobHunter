@@ -41,17 +41,14 @@ const JobCard = ({ job }) => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-4">
             <ul className="flex flex-wrap items-center text-xs md:text-sm gap-2">
               {job.skills?.map((skill, ind) => {
-                if (ind < 3) {
-                  return (
-                    <li
-                      key={ind}
-                      className="px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300 rounded-lg"
-                    >
-                      {skill}
-                    </li>
-                  );
-                }
-                return null;
+                return (
+                  <li
+                    key={ind}
+                    className="px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300 rounded-lg"
+                  >
+                    {skill}
+                  </li>
+                );
               })}
             </ul>
             <a

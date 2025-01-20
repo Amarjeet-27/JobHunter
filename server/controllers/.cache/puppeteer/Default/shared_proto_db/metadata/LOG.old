@@ -1,2 +1,3 @@
-2025/01/18-22:12:15.315 2d48 Creating DB C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\shared_proto_db\metadata since it was missing.
-2025/01/18-22:12:15.361 2d48 Reusing MANIFEST C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/01/19-10:07:29.697 21c Reusing MANIFEST C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/01/19-10:07:29.697 21c Recovering log #3
+2025/01/19-10:07:29.698 21c Reusing old log C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\shared_proto_db\metadata/000003.log 
