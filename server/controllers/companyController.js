@@ -1,8 +1,21 @@
+import { get } from "mongoose";
 import CompanyModel from "../models/companyModel.js";
+import { getServerStatus } from "./Config.js";
+import { scrapeJobs } from "./JobScrapper.js";
 
+let serverReady = false;
+// let counter = 0;
+
+const getStatus = (req, res) => {
+  res.send({
+    success: true,
+    message: "Server is ready",
+    serverReady: getServerStatus(),
+  });
+};
 const getCompanies = async (req, res) => {
   try {
-    const companies = await CompanyModel.find().sort({ postedAt: 1 }).limit(10);
+    const companies = await CompanyModel.find().sort({ postedAt: 1 });
     res.send({
       success: true,
       message: "Get all companies",
@@ -34,4 +47,4 @@ const getCompaniesBySkill = async (req, res) => {
     });
   }
 };
-export { getCompanies, getCompaniesBySkill };
+export { getCompanies, getCompaniesBySkill, getStatus };

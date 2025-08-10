@@ -1,10 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 const JobCard = ({ job }) => {
   return (
     <div className="flex justify-center items-center px-4 sm:px-8">
-      <div className="w-full sm:w-[80%] xl:w-[60%] mb-10 flex mx-auto justify-center items-center">
+      <div className="w-full sm:w-[80%] xl:w-[70%] mb-10 flex mx-auto justify-center items-center">
         <div className="flex w-full flex-col p-6 bg-white shadow-lg hover:shadow-xl transition-shadow rounded-lg border border-gray-200">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8 py-6">
             <div className="flex items-center gap-6">
@@ -33,9 +30,9 @@ const JobCard = ({ job }) => {
               </div>
             </div>
             <div className="text-sm md:text-base text-gray-600 flex flex-col gap-2">
-              <p>{job.postedAt} days ago</p>
-              <p>{job.salary}</p>
-              <p>{job.experience} of exp</p>
+              <p className="flex items-center gap-2">{job.postedAt} days ago</p>
+              <p className="flex items-center gap-2">{job.salary}</p>
+              <p className="flex items-center gap-2">{job.experience} of exp</p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-4">

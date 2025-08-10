@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import CompanyModel from "../models/companyModel.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-// import cron from "node-cron";
+import { SetServerReady } from "./Config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -11,6 +11,7 @@ const cacheDirectory = join(__dirname, ".cache", "puppeteer");
 
 const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
+let i = 0;
 export const scrapeJobs = async (url) => {
   try {
     const browser = await puppeteer.launch({
@@ -23,7 +24,7 @@ export const scrapeJobs = async (url) => {
     // Load cookies from file
     const cookies = JSON.parse(await fs.readFile(COOKIE_PATH));
     await page.setCookie(...cookies);
-    let i = 0;
+
     const AllJobs = [];
     while (i < 3) {
       const url = `https://www.naukri.com/jobs-in-india-${
@@ -104,10 +105,12 @@ export const scrapeJobs = async (url) => {
       } else if (length < 50) {
         await CompanyModel.deleteMany({});
         await CompanyModel.insertMany(sortByPostedAt);
+        SetServerReady(true);
         console.log("Jobs scraped successfully!");
       } else {
         await CompanyModel.deleteMany({});
         await CompanyModel.insertMany(sortByPostedAt.slice(0, 50));
+        SetServerReady(true);
         console.log("Jobs scraped successfully!");
       }
     } catch (error) {

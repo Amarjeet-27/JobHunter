@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "font-awesome/css/font-awesome.min.css";
 
-const SearchBar = ({ setShow, setJobs }) => {
+const SearchBar = ({ setSearchSkill, setJobs }) => {
   const [input, setInput] = useState("");
   const URL = import.meta.env.VITE_APP_URL;
   const onSearch = async () => {
-    setShow(true);
+    setSearchSkill(true);
     const res = await axios.post(`${URL}/jobs/skill`, {
       skill: input,
     });
@@ -20,17 +20,17 @@ const SearchBar = ({ setShow, setJobs }) => {
 
   const onClear = () => {
     setInput("");
-    setShow(false);
+    setSearchSkill(false);
   };
   useEffect(() => {
     if (input === "") {
-      setShow(false);
+      setSearchSkill(false);
     }
   }, [input]);
 
   return (
     <div className="flex justify-center items-center px-4 sm:px-8">
-      <div className="w-full sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] flex flex-col md:flex-row gap-4 my-10">
+      <div className="w-full sm:w-[80%] md:w-[80%] lg:w-[80%] xl:w-[60%] flex flex-col md:flex-row gap-4 my-10">
         <div className="relative w-full md:w-[70%] lg:w-[75%]">
           <input
             type="text"
@@ -42,7 +42,9 @@ const SearchBar = ({ setShow, setJobs }) => {
           />
           <i
             onClick={onClear}
-            className="fa fa-trash absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-lg text-gray-500 hover:text-red-500"
+            className="fa fa-trash absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-xl
+             text-red-500
+             hover:scale-150 transition-transform"
           />
         </div>
         <button
