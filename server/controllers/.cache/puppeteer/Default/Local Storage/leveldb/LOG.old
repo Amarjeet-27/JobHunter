@@ -1,3 +1,15 @@
-2025/08/10-11:14:05.719 147c Reusing MANIFEST C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\Local Storage\leveldb/MANIFEST-000001
-2025/08/10-11:14:05.731 147c Recovering log #18
-2025/08/10-11:14:05.734 147c Reusing old log C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\Local Storage\leveldb/000018.log 
+2025/08/12-21:05:17.422 3580 Reusing MANIFEST C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\Local Storage\leveldb/MANIFEST-000001
+2025/08/12-21:05:17.431 3580 Recovering log #20
+2025/08/12-21:05:17.436 3580 Reusing old log C:\Users\asus\OneDrive\Desktop\JobHunting\server\controllers\.cache\puppeteer\Default\Local Storage\leveldb/000020.log 
+2025/08/12-21:05:23.435 4124 Level-0 table #23: started
+2025/08/12-21:05:23.442 4124 Level-0 table #23: 30649 bytes OK
+2025/08/12-21:05:23.446 4124 Delete type=0 #20
+2025/08/12-21:05:23.448 4124 Compacting 4@0 + 1@1 files
+2025/08/12-21:05:23.453 4124 Generated table #24@0: 28 keys, 14931 bytes
+2025/08/12-21:05:23.453 4124 Compacted 4@0 + 1@1 files => 14931 bytes
+2025/08/12-21:05:23.454 4124 compacted to: files[ 0 1 0 0 0 0 0 ]
+2025/08/12-21:05:23.455 4124 Delete type=2 #13
+2025/08/12-21:05:23.455 4124 Delete type=2 #15
+2025/08/12-21:05:23.455 4124 Delete type=2 #17
+2025/08/12-21:05:23.455 4124 Delete type=2 #20
+2025/08/12-21:05:23.456 4124 Delete type=2 #23

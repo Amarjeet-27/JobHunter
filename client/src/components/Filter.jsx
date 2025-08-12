@@ -26,7 +26,7 @@ const Filter = ({
   if (!showFilter) return null; // Don't render until second page
 
   return (
-    <div className="fixed bottom-4 left-4 w-100 p-4 bg-white shadow-lg border rounded-lg">
+    <div className="fixed top-24 left-4 w-100 p-4 bg-white shadow-lg border rounded-lg">
       <h2 className="text-lg font-semibold mb-6">Filters</h2>
       <SearchBar
         setSearchSkill={setSearchSkill}

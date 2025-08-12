@@ -6,6 +6,7 @@ import SkillBased from "./components/SkillBased";
 import axios from "axios";
 import Loader from "./components/Loader";
 import Filter from "./components/Filter";
+import Footer from "./components/Footer";
 
 function App() {
   const [searchSkill, setSearchSkill] = useState(false);
@@ -57,7 +58,7 @@ function App() {
       <Navbar />
       <Header />
 
-      <div className="flex w-full overflow-x-auto [@media(min-width:1056px)]:overflow-x-visible snap-x snap-mandatory">
+      <div className="flex w-full overflow-x-auto [@media(min-width:1056px)]:overflow-x-visible snap-x snap-mandatory mt-10">
         <div className="flex-1 px-4 min-w-[300px] snap-start">
           <Filter
             setSearchSkill={setSearchSkill}
@@ -82,6 +83,7 @@ function App() {
         {/* Third column */}
         <div className="flex-1 bg-transparent snap-start"></div>
       </div>
+      <Footer />
     </div>
   );
 }

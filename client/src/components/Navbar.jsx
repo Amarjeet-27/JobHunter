@@ -21,7 +21,7 @@ const Navbar = () => {
           Home
         </li>
         <li
-          className="cursor-pointer hover:text-blue-500 transition-colors duration-300 ml-[100px]"
+          className="cursor-pointer hover:text-blue-500 transition-colors duration-300 "
           onClick={() => {
             document.getElementById("jobs").scrollIntoView({
               behavior: "smooth",
@@ -30,12 +30,26 @@ const Navbar = () => {
         >
           Jobs
         </li>
-        {/* <li className="cursor-pointer hover:text-blue-500 transition-colors duration-300">
+        <li
+          className="cursor-pointer hover:text-blue-500 transition-colors duration-300"
+          onClick={() => {
+            document.getElementById("footer").scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+        >
           About
         </li>
-        <li className="cursor-pointer hover:text-blue-500 transition-colors duration-300">
+        <li
+          className="cursor-pointer hover:text-blue-500 transition-colors duration-300"
+          onClick={() => {
+            document.getElementById("footer").scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+        >
           Contact
-        </li> */}
+        </li>
       </ul>
     </div>
   );
