@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import SearchBar from "./components/SearchBar";
 import AllJobs from "./components/AllJobs";
 import SkillBased from "./components/SkillBased";
 import axios from "axios";
@@ -11,6 +10,7 @@ import Filter from "./components/Filter";
 function App() {
   const [searchSkill, setSearchSkill] = useState(false);
   const [searchByLocation, setSearchByLocation] = useState(false);
+  const [searchByCompany, setSearchByCompany] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [data, Setdata] = useState([]);
   const [serverReady, setServerReady] = useState(false);
@@ -56,20 +56,31 @@ function App() {
     <div className="min-h-screen">
       <Navbar />
       <Header />
-      <SearchBar setSearchSkill={setSearchSkill} setJobs={setJobs} />
-      <div className="flex">
-        <Filter />
-        <div className="flex-1 ml-64 px-4">
+
+      <div className="flex w-full overflow-x-auto [@media(min-width:1056px)]:overflow-x-visible snap-x snap-mandatory">
+        <div className="flex-1 px-4 min-w-[300px] snap-start">
+          <Filter
+            setSearchSkill={setSearchSkill}
+            setSearchByLocation={setSearchByLocation}
+            setSearchByCompany={setSearchByCompany}
+            setJobs={setJobs}
+          />
+        </div>
+
+        <div className="flex-[12] px-4 min-w-[800px] snap-start" id="jobs">
           {loading ? (
             <div className="fixed inset-0 bg-white/70 backdrop-blur-sm z-50 flex items-center justify-center">
               <Loader />
             </div>
-          ) : searchSkill ? (
+          ) : searchSkill || searchByLocation || searchByCompany ? (
             <SkillBased jobs={jobs} />
           ) : (
             <AllJobs data={data} getData={getData} />
           )}
         </div>
+
+        {/* Third column */}
+        <div className="flex-1 bg-transparent snap-start"></div>
       </div>
     </div>
   );

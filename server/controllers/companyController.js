@@ -31,13 +31,13 @@ const getCompanies = async (req, res) => {
 
 const getCompaniesBySkill = async (req, res) => {
   try {
-    const skill = req.body.skill;
+    const skill = req.body.data;
     const companies = await CompanyModel.find({
       skills: { $in: [new RegExp(skill, "i")] },
     });
     res.send({
       success: true,
-      message: "Get all companies",
+      message: "Get all companies by skills",
       companies,
     });
   } catch (error) {
@@ -47,4 +47,48 @@ const getCompaniesBySkill = async (req, res) => {
     });
   }
 };
-export { getCompanies, getCompaniesBySkill, getStatus };
+
+const getCompaniesByLocation = async (req, res) => {
+  try {
+    const location = req.body.data;
+    const companies = await CompanyModel.find({
+      location: { $in: [new RegExp(location, "i")] },
+    });
+    res.send({
+      success: true,
+      message: "Get all companies by location",
+      companies,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const getCompaniesByCompany = async (req, res) => {
+  try {
+    const company = req.body.data;
+    const companies = await CompanyModel.find({
+      company: { $in: [new RegExp(company, "i")] },
+    });
+    res.send({
+      success: true,
+      message: "Get all companies by company name",
+      companies,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+export {
+  getCompanies,
+  getCompaniesBySkill,
+  getCompaniesByLocation,
+  getCompaniesByCompany,
+  getStatus,
+};
