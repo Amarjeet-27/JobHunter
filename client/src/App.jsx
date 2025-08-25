@@ -14,7 +14,7 @@ function App() {
   const [searchByCompany, setSearchByCompany] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [data, Setdata] = useState([]);
-  const [serverReady, setServerReady] = useState(false);
+  // const [serverready, setServerReady] = useState(false);
   const [loading, setLoading] = useState(true);
   const URL = import.meta.env.VITE_APP_URL;
 
@@ -23,7 +23,7 @@ function App() {
       const res = await axios.get(`${URL}/status`);
       console.log("Server status response: ", res.data?.serverReady);
       if (res.data?.serverReady) {
-        setServerReady(true);
+        // setServerReady(true);
         setLoading(false);
         getData();
       } else {

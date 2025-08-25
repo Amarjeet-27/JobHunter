@@ -3,14 +3,12 @@ import CompanyModel from "../models/companyModel.js";
 import { getServerStatus } from "./Config.js";
 import { scrapeJobs } from "./JobScrapper.js";
 
-let serverReady = false;
-// let counter = 0;
-
 const getStatus = (req, res) => {
+  const val = getServerStatus();
   res.send({
     success: true,
-    message: "Server is ready",
-    serverReady: getServerStatus(),
+    message: val ? "Server is ready" : "Server not ready",
+    serverReady: val,
   });
 };
 const getCompanies = async (req, res) => {
