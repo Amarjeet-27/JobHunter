@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT || 3002;
 connectDB();
-loginAndSaveSession();
+// loginAndSaveSession();
 scrapeJobs();
 app.use("/", companyRouter);
 app.listen(PORT, () => {
