@@ -12,7 +12,7 @@ const cacheDirectory = join(__dirname, ".cache", "puppeteer");
 const COOKIE_PATH = "cookies.json";
 const LOCAL_STORAGE_PATH = "localStorage.json";
 let i = 0;
-export const scrapeJobs = async (url) => {
+export const scrapeJobs = async () => {
   try {
     const browser = await puppeteer.launch({
       headless: false,

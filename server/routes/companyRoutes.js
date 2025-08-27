@@ -6,11 +6,9 @@ import {
   getCompaniesByLocation,
   getCompaniesByCompany,
 } from "../controllers/companyController.js";
-import { scrapeJobs } from "../controllers/JobScrapper.js";
 
 const companyRouter = express.Router();
 companyRouter.get("/", (req, res) => {
-  scrapeJobs();
   res.json({ message: "Loading all jobs" });
 });
 
