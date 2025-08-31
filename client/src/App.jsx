@@ -26,8 +26,6 @@ function App() {
         // setServerReady(true);
         setLoading(false);
         getData();
-      } else {
-        setTimeout(checkServerStatus, 1000); // Retry after 1 second
       }
     } catch (error) {
       console.log("Error checking server status: ", error);

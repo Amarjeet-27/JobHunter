@@ -3,7 +3,8 @@ import CompanyModel from "../models/companyModel.js";
 import { getServerStatus } from "./Config.js";
 import { scrapeJobs } from "./JobScrapper.js";
 
-const getStatus = (req, res) => {
+const getStatus = async (req, res) => {
+  await scrapeJobs();
   const val = getServerStatus();
   res.send({
     success: true,
